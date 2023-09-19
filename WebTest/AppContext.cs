@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using WebTest.Models;
 
 
 namespace WebTest
@@ -9,9 +10,9 @@ namespace WebTest
         private string dbpath = AppDomain.CurrentDomain.BaseDirectory + "itemsDB.sqlite";
         public DbSet<Person> Persons => Set<Person>();
 
-        public AppContext()
+        public AppContext(DbContextOptions<AppContext> options): base(options)
         {
-            Database.Migrate(); 
+            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -28,18 +29,18 @@ namespace WebTest
 
         private void BuildSkills(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Person>().HasKey(x => x.id);
-            modelBuilder.Entity<Person>().Property(x => x.id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Person>().HasKey(x => x.Id);
+            modelBuilder.Entity<Person>().Property(x => x.Id).ValueGeneratedOnAdd();
         }
 
         private void BuildPersons(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Skill>().HasKey(x => x.id);
-            modelBuilder.Entity<Skill>().Property(x => x.id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Skill>().HasKey(x => x.Id);
+            modelBuilder.Entity<Skill>().Property(x => x.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Skill>()
-                .HasOne(p => p.person)
-                .WithMany(ad => ad.skills)
-                .HasForeignKey(ad => ad.personRefKey)
+                .HasOne(p => p.Person)
+                .WithMany(ad => ad.Skills)
+                .HasForeignKey(ad => ad.PersonRefKey)
                 .IsRequired();
         }
     }
