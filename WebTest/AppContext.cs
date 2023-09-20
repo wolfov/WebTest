@@ -31,17 +31,13 @@ namespace WebTest
         {
             modelBuilder.Entity<Person>().HasKey(x => x.Id);
             modelBuilder.Entity<Person>().Property(x => x.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Person>().HasMany(x => x.Skills).WithOne().HasForeignKey(x=>x.PersonRefKey).IsRequired();
         }
 
         private void BuildPersons(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Skill>().HasKey(x => x.Id);
             modelBuilder.Entity<Skill>().Property(x => x.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Skill>()
-                .HasOne(p => p.Person)
-                .WithMany(ad => ad.Skills)
-                .HasForeignKey(ad => ad.PersonRefKey)
-                .IsRequired();
         }
     }
     }

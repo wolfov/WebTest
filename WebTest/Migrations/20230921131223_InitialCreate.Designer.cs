@@ -10,7 +10,7 @@ using WebTest;
 namespace WebTest.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20230917130842_InitialCreate")]
+    [Migration("20230921131223_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -19,62 +19,60 @@ namespace WebTest.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.11");
 
-            modelBuilder.Entity("WebTest.Person", b =>
+            modelBuilder.Entity("WebTest.Models.Person", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("displayName")
+                    b.Property<string>("DisplayName")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
                     b.ToTable("Persons");
                 });
 
-            modelBuilder.Entity("WebTest.Skill", b =>
+            modelBuilder.Entity("WebTest.Models.Skill", b =>
                 {
-                    b.Property<long>("id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<byte>("level")
+                    b.Property<byte>("Level")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("name")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("personRefKey")
+                    b.Property<long>("PersonRefKey")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("id");
+                    b.HasKey("Id");
 
-                    b.HasIndex("personRefKey");
+                    b.HasIndex("PersonRefKey");
 
                     b.ToTable("Skill");
                 });
 
-            modelBuilder.Entity("WebTest.Skill", b =>
+            modelBuilder.Entity("WebTest.Models.Skill", b =>
                 {
-                    b.HasOne("WebTest.Person", "person")
-                        .WithMany("skills")
-                        .HasForeignKey("personRefKey")
+                    b.HasOne("WebTest.Models.Person", null)
+                        .WithMany("Skills")
+                        .HasForeignKey("PersonRefKey")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("person");
                 });
 
-            modelBuilder.Entity("WebTest.Person", b =>
+            modelBuilder.Entity("WebTest.Models.Person", b =>
                 {
-                    b.Navigation("skills");
+                    b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618
         }

@@ -14,41 +14,41 @@ namespace WebTest.Migrations
                 name: "Persons",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
-                    displayName = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    DisplayName = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persons", x => x.id);
+                    table.PrimaryKey("PK_Persons", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Skill",
                 columns: table => new
                 {
-                    id = table.Column<long>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    personRefKey = table.Column<long>(type: "INTEGER", nullable: false),
-                    name = table.Column<string>(type: "TEXT", nullable: false),
-                    level = table.Column<byte>(type: "INTEGER", nullable: false)
+                    PersonRefKey = table.Column<long>(type: "INTEGER", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Level = table.Column<byte>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Skill", x => x.id);
+                    table.PrimaryKey("PK_Skill", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Skill_Persons_personRefKey",
-                        column: x => x.personRefKey,
+                        name: "FK_Skill_Persons_PersonRefKey",
+                        column: x => x.PersonRefKey,
                         principalTable: "Persons",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skill_personRefKey",
+                name: "IX_Skill_PersonRefKey",
                 table: "Skill",
-                column: "personRefKey");
+                column: "PersonRefKey");
         }
 
         /// <inheritdoc />
