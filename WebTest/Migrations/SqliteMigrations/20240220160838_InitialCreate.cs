@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebTest.Migrations
+namespace WebTest.Migrations.SqliteMigrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration

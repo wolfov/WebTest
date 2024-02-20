@@ -26,7 +26,7 @@ namespace WebTest.Controllers
         {
             if (person == null || !ModelState.IsValid)
                 return Results.StatusCode(500);
-            Person newPerson = await _service.NewPersone(person);
+            Person newPerson = await _service.NewPerson(person);
             if (newPerson == null)
                 return Results.StatusCode(500);
 
@@ -56,7 +56,7 @@ namespace WebTest.Controllers
         [HttpDelete("persons/{id:long}")]
         public async Task<IResult> DeletePersone(long id)
         {
-            if (!await _service.DeletePersone(id))
+            if (!await _service.DeletePerson(id))
                 return Results.BadRequest(new { message = "Сотрудник не найден" });
             return Results.Ok();
         }

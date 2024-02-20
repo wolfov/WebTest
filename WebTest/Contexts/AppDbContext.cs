@@ -2,22 +2,19 @@
 using WebTest.Models;
 
 
-namespace WebTest
+namespace WebTest.Contexts
 {
 
-    public class AppContext : DbContext
+    public class AppDbContext : DbContext
     {
-        private string dbpath = AppDomain.CurrentDomain.BaseDirectory + "itemsDB.sqlite";
         public DbSet<Person> Persons => Set<Person>();
 
-        public AppContext(DbContextOptions<AppContext> options): base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
         {
-            Database.Migrate();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite($"Data Source={dbpath}");
             base.OnConfiguring(optionsBuilder);
         }
 
