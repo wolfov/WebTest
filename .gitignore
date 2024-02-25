@@ -97,6 +97,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
+*.bak
 
 # Chutzpah Test files
 _Chutzpah*
@@ -150,6 +151,9 @@ coverage*.info
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+
+# Docker
+Dockerfile.bak
 
 # NCrunch
 _NCrunch_*

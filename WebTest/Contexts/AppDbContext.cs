@@ -9,7 +9,7 @@ namespace WebTest.Contexts
     {
         public DbSet<Person> Persons => Set<Person>();
 
-        public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
         }
 
@@ -28,7 +28,7 @@ namespace WebTest.Contexts
         {
             modelBuilder.Entity<Person>().HasKey(x => x.Id);
             modelBuilder.Entity<Person>().Property(x => x.Id).ValueGeneratedOnAdd();
-            modelBuilder.Entity<Person>().HasMany(x => x.Skills).WithOne().HasForeignKey(x=>x.PersonRefKey).IsRequired();
+            modelBuilder.Entity<Person>().HasMany(x => x.Skills).WithOne().HasForeignKey(x => x.PersonRefKey).IsRequired().OnDelete(DeleteBehavior.Cascade); ;
         }
 
         private void BuildPersons(ModelBuilder modelBuilder)
@@ -37,4 +37,4 @@ namespace WebTest.Contexts
             modelBuilder.Entity<Skill>().Property(x => x.Id).ValueGeneratedOnAdd();
         }
     }
-    }
+}

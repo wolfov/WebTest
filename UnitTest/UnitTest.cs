@@ -11,9 +11,6 @@ namespace UnitTest
 {
     public class PersonControllerTest : IDisposable
     {
-        private readonly IPersonService _personService;
-        private AppDbContext _context;
-
         public PersonControllerTest()
         {
             GetAppDbContext().Database.EnsureCreated();
@@ -24,7 +21,7 @@ namespace UnitTest
             GetAppDbContext().Database.EnsureDeleted();
         }
         private AppDbContext GetAppDbContext() => new AppDbContext(new DbContextOptionsBuilder<AppDbContext>().UseInMemoryDatabase("TestDb").Options);
-        private IPersonService GetPersonService() => new PersonService(GetAppDbContext());
+        private IPersonService GetPersonService() => new PersonService(GetAppDbContext(), null);
 
         [Fact]
         public async void NewPerson()

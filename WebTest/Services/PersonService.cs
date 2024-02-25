@@ -1,15 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebTest.Models;
 using WebTest.Contexts;
+using Microsoft.Extensions.Logging;
 
 namespace WebTest.Services
 {
     public class PersonService : IPersonService
     {
         private readonly AppDbContext _context;
-        public PersonService(AppDbContext context)
+        private readonly ILogger _loggeer;
+        public PersonService(AppDbContext context, ILogger loggeer)
         {
             _context = context;
+            _loggeer = loggeer;
         }
         public async Task<ICollection<Person>> GetPersons()
         {
@@ -22,7 +25,10 @@ namespace WebTest.Services
         public async Task<Person> NewPerson(Person person)
         {
             await _context.Persons.AddAsync(person);
-            await _context.SaveChangesAsync();
+            if (person != null)
+                await _context.SaveChangesAsync();
+            else
+                _loggeer?.Log(LogLevel.Trace, 0, this, new NullReferenceException(), (Cl, Ex)=> $"{Cl.GetType().FullName}.{nameof(NewPerson)}: {Ex.Message}");
             return person;
         }
         public async Task<Person> ChangePerson(long id, Person changePerson)

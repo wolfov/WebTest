@@ -25,7 +25,7 @@ namespace WebTest.Controllers
         public async Task<IResult> NewPersone([FromBody] Person person)
         {
             if (person == null || !ModelState.IsValid)
-                return Results.StatusCode(500);
+                return Results.BadRequest(new { message = "Не корректные данные" });
             Person newPerson = await _service.NewPerson(person);
             if (newPerson == null)
                 return Results.StatusCode(500);
@@ -46,7 +46,7 @@ namespace WebTest.Controllers
         public async Task<IResult> ChangePerson(long id, [FromBody] Person changePerson)
         {
             if (changePerson == null || !ModelState.IsValid)
-                return Results.StatusCode(500);
+                return Results.BadRequest(new { message = "Не корректные данные" });
             changePerson = await _service.ChangePerson(id, changePerson);
             if (changePerson == null)
                 return Results.BadRequest(new { message = "Сотрудник не найден" });
