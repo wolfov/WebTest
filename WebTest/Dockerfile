@@ -12,16 +12,16 @@ RUN dotnet restore
 COPY . .
 RUN dotnet build -c Release -o /app
 
-
 FROM build AS publish
 RUN dotnet publish -c Release -o /app
 
+
 RUN dotnet tool install --global dotnet-ef
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet ef database update --context AppDbContextSQLite
+RUN dotnet ef database update --context AppDbContextSQLite --connection "Data Source=/app/itemsDB.sqlite"
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-EXPOSE 5000
+EXPOSE 80
 ENTRYPOINT ["dotnet", "WebTest.dll"]

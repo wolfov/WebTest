@@ -18,7 +18,6 @@ namespace WebTest
         {
             var builder = WebApplication.CreateBuilder(args);
             var connectString = builder.Configuration.GetConnectionString("DefaultConnection").Replace("[appPath]", AppDomain.CurrentDomain.BaseDirectory);
-
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlite(connectString);

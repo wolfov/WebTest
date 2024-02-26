@@ -2,6 +2,8 @@ version: '3.8'
 
 services:
   webtest:
+    container_name: 'webtest'
+    image: webtest:1.0
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,16 +11,8 @@ services:
       - "80:80"
     depends_on:
       - db
-    networks:
-      - aspnetcoreapp-network
 
   db:
     image: nouchka/sqlite3:latest
     environment:
       - SQLITE_DATABASE=itemsDB.sqlite
-    networks:
-      - aspnetcoreapp-network
-      
-networks:
-  aspnetcoreapp-network:
-    driver: bridge
